@@ -74,6 +74,7 @@
     const auth = getAuth(app);
     const provider = new GoogleAuthProvider();
     const jogo = document.getElementById("jogo");
+    const logout = document.getElementById("logout");
     const login = document.getElementById("login");
     onAuthStateChanged(auth, (user) => {
 
@@ -86,11 +87,9 @@
       }
     
     });
-    const login = document.getElementById("login");
-    const logout = document.getElementById("logout");
 
     logout.addEventListener("click", () => {
-      signOut(auth);
+        signOut(auth);
      });
     login.addEventListener("click", () => {
       signInWithRedirect(auth, provider);
