@@ -4,9 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>Simulator Click</title>
-  <h1>Simulator Click</h1>
-  <p>Pontos: 0</>
+  <title>Simulator Clicker</title>
 
   <style>
     body {
@@ -20,7 +18,7 @@
     }
 
     p {
-      margin-top: -55px;
+      margin-top: 30px;
     }
 
     #click {
@@ -28,23 +26,88 @@
       background: #7f7f7f;
       color: white;
       border-radius: 50px;
-      width: 39%;
-      
+      width: 70%;
+
       display: block;
       margin: auto;
-      margin-top: 100px;
+      margin-top: 20px;
       font-size: 70px;
-      }
+    }
 
     #click:active {
       background: #7e7e7e79;
     }
-    
   </style>
 </head>
 
 <body>
-  <button id="click">Click</button>
+  <button id="login">Entrar com Google</button>
 
-  </body>
+  <div id="jogo" hidden>
+    <h1>Simulator Clicker</h1>
+    <p id="ponts">Pontos: 0</p>
+    <button id="click">Click</button>
+    <button id="logout">Sair da conta</button>
+  </div>
+
+  <script type="module">
+//login
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-app.js";
+    import {
+        getAuth,
+        GoogleAuthProvider,
+        signInWithRedirect,
+        onAuthStateChanged,
+        signOut
+      } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-auth.js";
+    
+    const firebaseConfig = {
+      apiKey: "AIzaSyBrFa4MNqEeIKFp8P6DV6yUFzlDpYLgwTs",
+      authDomain: "simulator-click.firebaseapp.com",
+      projectId: "simulator-click",
+      storageBucket: "simulator-click.firebasestorage.app",
+      messagingSenderId: "1016258931236",
+      appId: "1:1016258931236:web:92de795d88f49b8862c6b1",
+      measurementId: "G-JSEZVL4HLZ"
+    };
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
+    const jogo = document.getElementById("jogo");
+    const login = document.getElementById("login");
+    onAuthStateChanged(auth, (user) => {
+
+      if (user) {
+        jogo.hidden = false;
+        login.hidden = true;
+      } else {
+        jogo.hidden = true;
+        login.hidden = false;
+      }
+    
+    });
+    const login = document.getElementById("login");
+    const logout = document.getElementById("logout");
+
+    logout.addEventListener("click", () => {
+      signOut(auth);
+     });
+    login.addEventListener("click", () => {
+      signInWithRedirect(auth, provider);
+     });
+//  
+    const ponts = document.getElementById("ponts");
+    const click = document.getElementById("click");
+
+    
+    let pontos = 0;
+
+    click.addEventListener("click", () => {
+      if (pontos < 1) {
+      pontos = pontos + 1;}
+      ponts.textContent = "Pontos: " + pontos;
+    });
+  </script>
+</body>
+
 </html>
