@@ -1,0 +1,11 @@
+
+{
+  "name": "Simulator Clicker",
+  "short_name": "Simulator Clicker",
+  "description": "Seu assistente de xadrez",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#100f1b",
+  "theme_color": "#100f1b"
+}
